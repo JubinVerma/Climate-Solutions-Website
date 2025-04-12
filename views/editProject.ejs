@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Project</title>
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
+    <%- include('partials/navbar', {page:''}) %>
+    <!-- container-->
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 mb-4">
+        <div class="hero min-h-72 bg-neutral-800 rounded-2xl mt-4">
+          <div class="hero-content text-center">
+            <div class="max-w-md">
+              <h1 class="text-5xl font-bold"><%= project.title %></h1>
+              <p class="py-6">
+                Use the below form to edit the exiting Project from the collection
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <form method="post" action="/solutions/editProject" width="100%">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      
+      <div>
+          <input type="hidden" name="id" value="<%= project.id %>" />
+          <p class="p-2">Title</p>
+          <input type="text" class="input bg-neutral-800 w-full" required name="title" value="<%= project.title %>" />
+      </div>
+  
+      <div>
+          <p class="p-2">Feature Image (URL)</p>
+          <input name="feature_img_url" type="url" class="input bg-neutral-800 w-full"  value="<%= project.feature_img_url %>" required/>
+      </div>
+
+      <div>
+          <p class="p-2">Sector</p>
+          <select class="select bg-neutral-800 w-full" name="sector_id">
+            <% sectors.forEach(sector=>{ %>
+                <option <%= (project.sector_id == sector.id) ? "selected" : "" %> value="<%= sector.id %>">
+                <%= sector.sector_name %>
+                </option>
+                <% }) %>
+              </select>
+          
+      </div>
+
+      <div>
+          <p class="p-2">Intro</p>
+          <textarea class="textarea bg-neutral-800 w-full rounded-md h-40" name="intro_short"><%= project.intro_short %></textarea>
+      </div>
+      <div>
+          <p class="p-2">Short Summary</p>
+          <textarea class="textarea bg-neutral-800 w-full rounded-md h-40" name="summary_short"><%= project.summary_short %></textarea>
+      </div>
+      <div>
+          <p class="p-2">Impact</p>
+          <textarea class="textarea bg-neutral-800 w-full rounded-md h-40" name="impact"><%= project.impact %></textarea>
+      </div>
+
+      <div>
+          <p class="p-2">Original Source (URL)</p>
+          <input name="original_source_url" type="url" class="input bg-neutral-800 w-full" required value="<%= project.original_source_url %>"/>
+      </div>
+
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-7 justify-items-end gap-0 p-0 m-0">
+          <button type="submit" class="btn btn-primary btn-sm" >Save Project</button>
+          <a href="/solutions/deleteProject/<%= project.id %>" class="btn btn-error btn-sm" >Delete Project</a>
+      </div>
+      <br>
+  </div> <!-- container -->
+  </form>
+ 
+  </body>
+</html>

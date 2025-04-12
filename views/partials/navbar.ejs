@@ -1,0 +1,68 @@
+<div class="navbar bg-base-100">
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl" href="/">Climate Solutions</a>
+  </div>
+
+  <% if (showSearchBar) { %>
+  <div class="form-control">
+    <form action="/solutions/projects" method="get">
+      <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" name="sector"/>
+    </form>
+  </div>
+  <% } %>
+
+  <!-- Mobile Menu (visible on small screens) -->
+  <div class="dropdown dropdown-end sm:hidden">
+    <label tabindex="0" class="btn btn-ghost">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </label>
+    <ul tabindex="0" class="menu dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50">
+      <li><a href="/solutions/projects" class="<%= (page == '/solutions/projects') ? 'active': '' %>">View Projects</a></li>
+
+      <% if (session.user) { %>
+        <li><a href="/solutions/addProject" class="<%= (page == '/solutions/addProject') ? 'active' : '' %>">Add Project</a></li>
+        <li><a href="/userHistory" class="<%= (page == '/userHistory') ? 'active' : '' %>">User History</a></li>
+        <li><a href="/logout">Log Out</a></li>
+      <% } else { %>
+        <li><a href="/login" class="<%= (page == '/login') ? 'active' : '' %>">Login</a></li>
+        <li><a href="/register" class="<%= (page == '/register') ? 'active' : '' %>">Register</a></li>
+      <% } %>
+
+      <li><a href="/about" class="<%= (page == '/about') ? 'active': '' %>">About</a></li>
+    </ul>
+  </div>
+
+  <!-- Desktop Menu (hidden on small screens) -->
+  <div class="hidden sm:flex">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="/solutions/projects" class="<%= (page == '/solutions/projects') ? 'active': '' %>">View Projects</a></li>
+
+      <% if (session.user) { %>
+        <li tabindex="0">
+          <details>
+            <summary>Account: <%= session.user.userName %></summary>
+            <ul class="p-2">
+              <li><a href="/solutions/addProject" class="<%= (page == '/solutions/addProject') ? 'active' : '' %>">Add Project</a></li>
+              <li><a href="/userHistory" class="<%= (page == '/userHistory') ? 'active' : '' %>">User History</a></li>
+              <li><a href="/logout">Log Out</a></li>
+            </ul>
+          </details>
+        </li>
+      <% } else { %>
+        <li tabindex="0">
+          <details>
+            <summary>Account</summary>
+            <ul class="p-2">
+              <li><a href="/login" class="<%= (page == '/login') ? 'active' : '' %>">Login</a></li>
+              <li><a href="/register" class="<%= (page == '/register') ? 'active' : '' %>">Register</a></li>
+            </ul>
+          </details>
+        </li>
+      <% } %>
+
+      <li><a href="/about" class="<%= (page == '/about') ? 'active': '' %>">About</a></li>
+    </ul>
+  </div>
+</div>
